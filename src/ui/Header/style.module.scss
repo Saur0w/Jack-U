@@ -1,5 +1,26 @@
 .header {
-  h1 {
-    color: #171717;
+  background-color: #fff301;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  .hamburger {
+    position: absolute;
+    left: 25px;
+    top: 28px;
+    width: 32px;
+    height: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+
+    span {
+      height: 2px;
+      width: 100%;
+      background: #010200;
+      transform-origin: center;
+      display: block;
+    }
   }
 }

@@ -1,17 +1,51 @@
 "use client";
 
 import Link from "next/link";
-import styles from './style.module.scss';
+import { gsap } from "gsap";
+import { useGSAP } from '@gsap/react';
+import Image from "next/image";
+import { useRef, useState } from "react";
+import styles from "./style.module.scss";
 
 export default function Header() {
-  return (
-      <header
-          className={`fixed top-0 left-0 h-40 w-screen bg-transparent overflow-hidden flex justify-center items-center gap-x-20 ${styles.header}`}
-      >
-      <Link href="/"><h1>Home</h1></Link>
-      <Link href="/about"><h1>About</h1></Link>
-      <Link href="/music"><h1>Music</h1></Link>
-      <Link href="/contact"><h1>Contact</h1></Link>
-    </header>
-  );
+    const hamburgerRef = useRef<HTMLDivElement | null>(null);
+    const [isOpen, setIsOpen] = useState(false);
+    const tl = useRef<gsap.core.Timeline | null>(null);
+
+    const toggleMenu = () => {
+        setIsOpen((prev) => !prev);
+    }
+
+    useGSAP(() => {
+
+        const lines = hamburgerRef.current?.querySelectorAll('span');
+
+        if (!lines) return;
+
+        tl.current = gsap.timeline();
+        if (isOpen) {
+           tl.current.to(lines[0], { y: 10, rotate: 45, duration: 0.3, ease: "power2.out" }, 0)
+               .to(lines[1], { opacity: 0, duration: 0.2 }, 0)
+               .to(lines[2], { y: -10, rotate: -45, duration: 0.3, ease: "power2.out" }, 0);
+        } else {
+            tl.current.to(lines[0], { y: 0, rotate: 0, duration: 0.3, ease: "power2.out" }, 0)
+                .to(lines[1], { opacity: 1, duration: 0.2 }, 0)
+                .to(lines[2], { y: 0, rotate: 0, duration: 0.3, ease: "power2.out" }, 0);
+        }
+
+    }, { dependencies: [isOpen]});
+    return (
+        <header className={`fixed top-10 left-130 right-130 h-20 rounded-[10px] ${styles.header}`}>
+            <div className={styles.topBar}>
+                <div className={styles.hamburger} ref={hamburgerRef} onClick={toggleMenu} >
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div className={styles.logo}>
+                    <Image src="/images/logo.png" width={40} height={40} alt="logo"/>
+                </div>
+            </div>
+        </header>
+    )
 }
