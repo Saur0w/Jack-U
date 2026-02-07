@@ -11,6 +11,7 @@ export default function Header() {
     const hamburgerRef = useRef<HTMLDivElement | null>(null);
     const [isOpen, setIsOpen] = useState(false);
     const headerRef = useRef<HTMLDivElement | null>(null);
+    const menuRef = useRef<HTMLDivElement | null>(null);
 
     const tl = useRef<gsap.core.Timeline | null>(null);
 
@@ -36,22 +37,35 @@ export default function Header() {
                ease: "power2.out"
            });
 
+           tl.current.to(headerRef.current, {
+               height: 800,
+               duration: 0.8,
+               ease: "power3.out"
+           });
 
         } else {
             tl.current.to(lines[0], { y: 0, rotate: 0, duration: 0.3, ease: "power2.out" }, 0)
                 .to(lines[1], { opacity: 1, duration: 0.2 }, 0)
                 .to(lines[2], { y: 0, rotate: 0, duration: 0.3, ease: "power2.out" }, 0);
 
-            gsap.to(headerRef.current, {
+            tl.current.to(headerRef.current, {
+                height: 80,
+                duration: 0.5,
+                ease: "power3.out"
+            })
+
+            tl.current.to(headerRef.current, {
                 left: 400,
                 right: 400,
                 ease: "power2.out"
             });
+
+
         }
 
     }, { dependencies: [isOpen]});
     return (
-        <header className={`fixed top-10  h-20 rounded-[10px] ${styles.header}`} ref={headerRef}>
+        <header className={`fixed top-10  rounded-[10px] ${styles.header}`} ref={headerRef}>
             <div className={styles.topBar}>
                 <div className={styles.hamburger} ref={hamburgerRef} onClick={toggleMenu} >
                     <span></span>
@@ -60,6 +74,15 @@ export default function Header() {
                 </div>
                 <div className={styles.logo}>
                     <Image src="/images/logo.png" width={40} height={40} alt="logo"/>
+                </div>
+            </div>
+
+            <div ref={menuRef} className={styles.menuOverlay}>
+                <div className={styles.items}>
+                    <Link href="/">Home</Link>
+                    <Link href="/">About</Link>
+                    <Link href="/">Music</Link>
+                    <Link href="/">Shows</Link>
                 </div>
             </div>
         </header>
