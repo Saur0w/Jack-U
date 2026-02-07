@@ -73,7 +73,7 @@ export default function Header() {
                     <span></span>
                 </div>
                 <div className={styles.logo}>
-                    <Image src="/images/logo.png" width={40} height={40} alt="logo"/>
+                    <Image src="/images/logo.png" alt="logo" width={100} height={100} />
                 </div>
             </div>
 

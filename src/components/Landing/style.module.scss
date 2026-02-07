@@ -1,22 +1,10 @@
 .landing {
-  .content {
-    display: flex;
-    flex-direction: row;
-    gap: 5vw;
-    .imageContainer {
-      width: 400px;
-      height: 600px;
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-
-    .para {
-      margin-top: 10vh;
-      p {
-        color: #010200;
-      }
-    }
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  h1 {
+    font-size: 10vw;
+    color: #fff301;
   }
 }
